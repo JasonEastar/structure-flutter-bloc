@@ -1,0 +1,16 @@
+{
+  "appTitle": "Thèm",
+  "loginTitle": "Đăng nhập",
+  "signupTitle": "Đăng ký",
+  "emailHint": "Email",
+  "passwordHint": "Mật khẩu",
+  "loginButton": "Đăng nhập",
+  "signupButton": "Đăng ký",
+  "continueWithGoogle": "Tiếp tục với Google",
+  "continueWithFacebook": "Tiếp tục với Facebook",
+  "noAccount": "Chưa có tài khoản?",
+  "haveAccount": "Đã có tài khoản?",
+  "mapTitle": "Khám phá",
+  "createPostTitle": "Tạo bài đăng",
+  "livestreamTitle": "Phát trực tiếp"
+}

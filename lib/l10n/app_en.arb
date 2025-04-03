@@ -1,0 +1,16 @@
+{
+  "appTitle": "Them",
+  "loginTitle": "Login",
+  "signupTitle": "Sign Up",
+  "emailHint": "Email",
+  "passwordHint": "Password",
+  "loginButton": "Login",
+  "signupButton": "Sign Up",
+  "continueWithGoogle": "Continue with Google",
+  "continueWithFacebook": "Continue with Facebook",
+  "noAccount": "Don't have an account?",
+  "haveAccount": "Already have an account?",
+  "mapTitle": "Explore",
+  "createPostTitle": "Create Post",
+  "livestreamTitle": "Livestream"
+}
