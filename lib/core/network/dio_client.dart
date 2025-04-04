@@ -1,6 +1,7 @@
 // lib/core/network/dio_client.dart
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:them/config/constants/api_constants.dart';
 import 'package:them/core/network/interceptors/auth_interceptor.dart';
 import 'package:them/core/network/interceptors/logging_interceptor.dart';
 
@@ -12,13 +13,12 @@ class DioClient {
   DioClient() {
     _dio = Dio(
       BaseOptions(
-        baseUrl: '#', // Thay thế bằng API thực tế
+        baseUrl: ApiConstants.apiUrl + ApiConstants.versionAPI, // URL API
         connectTimeout: const Duration(seconds: 15),
         receiveTimeout: const Duration(seconds: 15),
         contentType: 'application/json',
       ),
     );
-
     _setupInterceptors();
   }
 

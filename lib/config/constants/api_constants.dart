@@ -1,8 +1,9 @@
 class ApiConstants {
-  static const String baseUrl = 'https://api.example.com'; // Thay thế bằng URL thật
+  static const String apiUrl = 'http://localhost:3000'; // Thay thế bằng URL thật
+  static const String versionAPI = '/api/v1'; // Thay thế bằng URL thật
 
   // Auth endpoints
-  static const String login = '/auth/login';
+  static const String login = '/user/public/admin/login'; //user/public/login
   static const String register = '/auth/register';
   static const String refreshToken = '/auth/refresh';
 

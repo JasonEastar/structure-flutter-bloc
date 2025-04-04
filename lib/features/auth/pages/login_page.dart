@@ -15,12 +15,12 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   // Controllers để lấy giá trị nhập
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  
+  final _emailController = TextEditingController(text: 'jasonadmin');
+  final _passwordController = TextEditingController(text: '123qwe');
+
   // Key cho form validation
   final _formKey = GlobalKey<FormState>();
-  
+
   // Trạng thái hiển thị mật khẩu
   bool _obscurePassword = true;
 
@@ -41,8 +41,9 @@ class _LoginPageState extends State<LoginPage> {
           // Xử lý khi trạng thái thay đổi
           if (state.status == AuthStatus.authenticated) {
             // Chuyển đến màn hình chính nếu đăng nhập thành công
-            context.go(AppRoutes.map);
-          } else if (state.status == AuthStatus.error && state.errorMessage != null) {
+            context.go(AppRoutes.home);
+          } else if (state.status == AuthStatus.error &&
+              state.errorMessage != null) {
             // Hiển thị thông báo lỗi
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -93,9 +94,12 @@ class _LoginPageState extends State<LoginPage> {
                         if (value == null || value.isEmpty) {
                           return 'Vui lòng nhập email';
                         }
-                        if (!value.contains('@')) {
-                          return 'Email không hợp lệ';
+                         if (value.length < 6) {
+                          return 'Email phải có ít nhất 6 ký tự';
                         }
+                        // if (!value.contains('@')) {
+                        //   return 'Email không hợp lệ';
+                        // }
                         return null;
                       },
                     ),
@@ -108,7 +112,9 @@ class _LoginPageState extends State<LoginPage> {
                         prefixIcon: const Icon(Icons.lock),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                            _obscurePassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                           ),
                           onPressed: () {
                             setState(() {
@@ -158,6 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                         TextButton(
                           onPressed: () {
                             // Chuyển đến trang đăng ký (sẽ thêm sau)
+                            context.go(AppRoutes.register);
                           },
                           child: const Text('Đăng ký'),
                         ),

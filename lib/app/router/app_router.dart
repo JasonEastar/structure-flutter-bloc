@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:them/app/router/app_routes.dart';
 import 'package:them/features/auth/cubit/auth_cubit.dart';
 import 'package:them/features/auth/pages/login_page.dart';
+import 'package:them/features/map/pages/map_page.dart';
 import 'package:them/features/splash/splash_screen.dart';
 
 /// Router chính của ứng dụng
@@ -26,46 +27,40 @@ class AppRouter {
         builder: (context, state) => const LoginPage(),
       ),
       GoRoute(
-        path: AppRoutes.map,
-        builder: (context, state) => Scaffold(
-          appBar: AppBar(title: const Text('Trang chính')),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Xin chào, ${authCubit.state.user?.name ?? 'Người dùng'}!'),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () => authCubit.logout(),
-                  child: const Text('Đăng xuất'),
-                ),
-              ],
-            ),
-          ),
-        ),
+        path: AppRoutes.home,
+        builder: (context, state) => const MapPage(),
       ),
+      //  GoRoute(
+      //   path: AppRoutes.map,
+      //   builder: (context, state) => Scaffold(
+      //     appBar: AppBar(title: const Text('Trang chính')),
+      //     body: mapPage,
+      //   ),
+      // ),
     ],
     // Xử lý chuyển hướng trang
     redirect: (context, state) {
       final bool isAuthenticated = authCubit.state.isAuthenticated;
       final bool isLoginRoute = state.matchedLocation == AppRoutes.login;
       final bool isSplashRoute = state.matchedLocation == AppRoutes.splash;
-      
+
       // Không chuyển hướng khi đang ở splash
       if (isSplashRoute) return null;
-      
+
       // Nếu chưa đăng nhập và không ở trang login, chuyển đến login
       if (!isAuthenticated && !isLoginRoute) return AppRoutes.login;
-      
+
       // Nếu đã đăng nhập và đang ở trang login, chuyển đến map
-      if (isAuthenticated && isLoginRoute) return AppRoutes.map;
-      
+      if (isAuthenticated && isLoginRoute) return AppRoutes.home;
+
       // Các trường hợp khác giữ nguyên
       return null;
     },
     // Lắng nghe thay đổi từ AuthCubit
     refreshListenable: GoRouterRefreshStream(authCubit.stream),
   );
+
+  get mapPage => null;
 }
 
 /// Helper class để lắng nghe sự thay đổi từ stream của BLoC/Cubit
