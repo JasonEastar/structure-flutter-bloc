@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:them/app/localization/l10n.dart';
 import 'package:them/features/auth/cubit/auth_cubit.dart';
+import 'package:them/presentation/widgets/asidebar_menu.dart';
 
 class MapPage extends StatelessWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -9,14 +11,21 @@ class MapPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final AuthCubit authCubit = context.read<AuthCubit>();
 
+    final l10n = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Trang chủ'),
+      ),
+      drawer: const Drawer(
+        child: AsideMenu(),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Text('Hello'),
+            Text(l10n.appTitle),
             Text('Xin chào, ${authCubit.state.user?.name ?? 'Người dùng'}!'),
             Image.network(
               authCubit.state.user?.profilePicture ?? '',

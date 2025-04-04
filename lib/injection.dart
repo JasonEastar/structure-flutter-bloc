@@ -1,5 +1,6 @@
 // lib/injection.dart
 import 'package:get_it/get_it.dart';
+import 'package:them/app/cubit/locale_cubit.dart';
 import 'package:them/app/router/app_router.dart';
 import 'package:them/core/network/dio_client.dart';
 import 'package:them/core/storage/secure_storage.dart';
@@ -21,6 +22,9 @@ void setupDependencies() {
   getIt.registerSingleton<SecureStorage>(SecureStorage());
   getIt.registerSingleton<DioClient>(DioClient());
 
+ // Localization
+  getIt.registerSingleton<LocaleCubit>(LocaleCubit()); // Thêm dòng này
+  
   // Data sources
   getIt.registerSingleton<AuthLocalDataSource>(
     AuthLocalDataSourceImpl(getIt<SecureStorage>()),

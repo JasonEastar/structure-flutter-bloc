@@ -2,9 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:them/app/localization/l10n.dart';
 import 'package:them/app/router/app_routes.dart';
 import 'package:them/features/auth/cubit/auth_cubit.dart';
 import 'package:them/features/auth/cubit/auth_state.dart';
+import 'package:them/presentation/widgets/language_switcher.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -34,7 +36,15 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Scaffold(
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context).appTitle),
+        actions: const [
+          LanguageSwitcher(), // Thêm nút chuyển đổi ngôn ngữ vào AppBar
+        ],
+      ),
       // Bắt sự kiện từ AuthCubit
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
@@ -71,9 +81,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: 32),
                     // Tên ứng dụng
-                    const Text(
-                      'Thèm',
-                      style: TextStyle(
+                    Text(
+                      l10n.appTitle,
+                      style: const TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
                       ),
@@ -83,8 +93,8 @@ class _LoginPageState extends State<LoginPage> {
                     // Form đăng nhập
                     TextFormField(
                       controller: _emailController,
-                      decoration: const InputDecoration(
-                        labelText: 'Email',
+                      decoration: InputDecoration(
+                        labelText: l10n.emailHint,
                         hintText: 'Nhập email của bạn',
                         prefixIcon: Icon(Icons.email),
                         border: OutlineInputBorder(),
@@ -94,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                         if (value == null || value.isEmpty) {
                           return 'Vui lòng nhập email';
                         }
-                         if (value.length < 6) {
+                        if (value.length < 6) {
                           return 'Email phải có ít nhất 6 ký tự';
                         }
                         // if (!value.contains('@')) {
@@ -107,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                     TextFormField(
                       controller: _passwordController,
                       decoration: InputDecoration(
-                        labelText: 'Mật khẩu',
+                        labelText: l10n.passwordHint,
                         hintText: 'Nhập mật khẩu của bạn',
                         prefixIcon: const Icon(Icons.lock),
                         suffixIcon: IconButton(
