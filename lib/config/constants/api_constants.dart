@@ -1,6 +1,12 @@
+import 'package:them/config/env/env_constants.dart';
+
 class ApiConstants {
-  static const String apiUrl = 'http://localhost:3000'; // Thay thế bằng URL thật
-  static const String versionAPI = '/api/v1'; // Thay thế bằng URL thật
+  static String apiUrl = EnvConstants.apiBaseUrl; // URL call API
+  static const String versionAPI = '/api/v1'; // Version API (endpoint)
+
+// Auth0
+  static String auth0Domain = EnvConstants.auth0Domain; // AUTH0 DOMAIN
+  static String auth0ClientId = EnvConstants.auth0ClientId; // AUTH0 CLIENT ID
 
   // Auth endpoints
   static const String login = '/user/public/admin/login'; //user/public/login

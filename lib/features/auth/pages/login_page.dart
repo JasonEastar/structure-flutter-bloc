@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
 import 'package:them/app/localization/l10n.dart';
 import 'package:them/app/router/app_routes.dart';
 import 'package:them/features/auth/cubit/auth_cubit.dart';
@@ -26,12 +27,31 @@ class _LoginPageState extends State<LoginPage> {
   // Trạng thái hiển thị mật khẩu
   bool _obscurePassword = true;
 
+  final logger = Logger();
+
   @override
   void dispose() {
     // Giải phóng tài nguyên khi widget bị hủy
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+// / Kiểm tra trạng thái xác thực và chuyển hướng
+  void checkAuthStatusRedirect(context, state) {
+    // Xử lý khi trạng thái thay đổi
+    if (state.status == AuthStatus.authenticated) {
+      // Chuyển đến màn hình chính nếu đăng nhập thành công
+      GoRouter.of(context).go(AppRoutes.home);
+    } else if (state.status == AuthStatus.error && state.errorMessage != null) {
+      // Hiển thị thông báo lỗi
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(state.errorMessage!),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   @override
@@ -48,20 +68,7 @@ class _LoginPageState extends State<LoginPage> {
       // Bắt sự kiện từ AuthCubit
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
-          // Xử lý khi trạng thái thay đổi
-          if (state.status == AuthStatus.authenticated) {
-            // Chuyển đến màn hình chính nếu đăng nhập thành công
-            context.go(AppRoutes.home);
-          } else if (state.status == AuthStatus.error &&
-              state.errorMessage != null) {
-            // Hiển thị thông báo lỗi
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.errorMessage!),
-                backgroundColor: Colors.red,
-              ),
-            );
-          }
+          checkAuthStatusRedirect(context, state);
         },
         builder: (context, state) {
           return SafeArea(
@@ -96,8 +103,8 @@ class _LoginPageState extends State<LoginPage> {
                       decoration: InputDecoration(
                         labelText: l10n.emailHint,
                         hintText: 'Nhập email của bạn',
-                        prefixIcon: Icon(Icons.email),
-                        border: OutlineInputBorder(),
+                        prefixIcon: const Icon(Icons.email),
+                        border: const OutlineInputBorder(),
                       ),
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
@@ -174,7 +181,7 @@ class _LoginPageState extends State<LoginPage> {
                         TextButton(
                           onPressed: () {
                             // Chuyển đến trang đăng ký (sẽ thêm sau)
-                            context.go(AppRoutes.register);
+                            context.go(AppRoutes.map);
                           },
                           child: const Text('Đăng ký'),
                         ),

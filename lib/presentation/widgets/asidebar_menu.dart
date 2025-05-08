@@ -31,7 +31,7 @@ class AsideMenu extends StatelessWidget {
       width: menuWidth,
       height: double.infinity,
       decoration: BoxDecoration(
-        color: isDarkMode ? Color(0xFF1E1E1E) : Colors.white,
+        color: isDarkMode ? const Color(0xFF1E1E1E) : Colors.white,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.08),
@@ -436,7 +436,7 @@ class AsideMenu extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
           ),
           elevation: 16,
-          backgroundColor: isDarkMode ? Color(0xFF252525) : Colors.white,
+          backgroundColor: isDarkMode ? const Color(0xFF252525) : Colors.white,
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(

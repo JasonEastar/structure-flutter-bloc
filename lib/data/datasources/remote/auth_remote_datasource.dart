@@ -24,74 +24,73 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final Logger _logger = Logger();
   @override
   Future<LoginResponseModel> login(String email, String password) async {
-    // if (email == "jason@gmail.com" && password == "123qwe") {
-    //   // Trả về dữ liệu giả khi đăng nhập thành công
-    //   final fakeData = {
-    //     'user': {
-    //       'id': '1010',
-    //       'name': 'Jason Nguyen',
-    //       'email': email,
-    //       'profile_picture': 'https://randomuser.me/api/portraits/men/1.jpg'
-    //     },
-    //     'token': {
-    //       'access_token':
-    //           'fake_access_token_${DateTime.now().millisecondsSinceEpoch}',
-    //       'refresh_token':
-    //           'fake_refresh_token_${DateTime.now().millisecondsSinceEpoch}',
-    //       'expires_at': DateTime.now()
-    //           .add(const Duration(hours: 1))
-    //           .millisecondsSinceEpoch
-    //     }
-    //   };
-
-    //   return LoginResponseModel.fromJson(fakeData);
-    // } else {
-    //   throw ServerException(message: 'Email hoặc mật khẩu không đúng');
-    // }
-
-    try {
-      final response = await dio.post(
-        ApiConstants.login,
-        data: {
-          'loginname': email,
-          'password': password,
-        },
-      );
-
-      _logger.i('Đăng nhập thành công: ${response.data}');
-      final errorCode = response.data['error_code'];
-
-      if (errorCode == 0) {
-        final responseData = <String, dynamic>{};
-
-        responseData['user'] = {
-          'id': '121212',
-          'name': email,
+    if (email == "jasonadmin" && password == "123qwe") {
+      final fakeData = {
+        'user': {
+          'id': '1010',
+          'name': 'Jason Nguyen',
           'email': email,
-          'profile_picture': 'https://randomuser.me/api/portraits/men/1.jpg',
-        };
-
-        responseData['token'] = {
-          'access_token': response.data['data']['token'],
-          'refresh_token': response.data['data']['refeshtoken'],
+          'profile_picture': 'https://randomuser.me/api/portraits/men/1.jpg'
+        },
+        'token': {
+          'access_token':
+              'fake_access_token_${DateTime.now().millisecondsSinceEpoch}',
+          'refresh_token':
+              'fake_refresh_token_${DateTime.now().millisecondsSinceEpoch}',
           'expires_at': DateTime.now()
               .add(const Duration(hours: 1))
               .millisecondsSinceEpoch
-        };
-        return LoginResponseModel.fromJson(responseData);
-      } else {
-        throw ServerException(
-          message: response.data['msg'] ?? 'Đăng nhập thất bại',
-        );
-      }
-    } on DioException catch (e) {
-      _logger.i('Lỗi đăng nhập: ${e.response?.data}');
-      throw ServerException(
-        message: e.response?.data?['msg'] ?? 'Lỗi kết nối đến server',
-      );
-    } catch (e) {
-      throw ServerException(message: e.toString());
+        }
+      };
+
+      return LoginResponseModel.fromJson(fakeData);
+    } else {
+      throw ServerException(message: 'Email hoặc mật khẩu không đúng');
     }
+
+    // try {
+    //   final response = await dio.post(
+    //     ApiConstants.login,
+    //     data: {
+    //       'loginname': email,
+    //       'password': password,
+    //     },
+    //   );
+
+    //   _logger.i('Đăng nhập thành công: ${response.data}');
+    //   final errorCode = response.data['error_code'];
+
+    //   if (errorCode != 0) {
+    //     final responseData = <String, dynamic>{};
+
+    //     responseData['user'] = {
+    //       'id': '121212',
+    //       'name': email,
+    //       'email': email,
+    //       'profile_picture': 'https://randomuser.me/api/portraits/men/1.jpg',
+    //     };
+
+    //     responseData['token'] = {
+    //       'access_token': response.data['data']['token'],
+    //       'refresh_token': response.data['data']['refeshtoken'],
+    //       'expires_at': DateTime.now()
+    //           .add(const Duration(hours: 1))
+    //           .millisecondsSinceEpoch
+    //     };
+    //     return LoginResponseModel.fromJson(responseData);
+    //   } else {
+    //     throw ServerException(
+    //       message: response.data['msg'] ?? 'Đăng nhập thất bại',
+    //     );
+    //   }
+    // } on DioException catch (e) {
+    //   _logger.i('Lỗi đăng nhập: ${e.response?.data}');
+    //   throw ServerException(
+    //     message: e.response?.data?['msg'] ?? 'Lỗi kết nối đến server',
+    //   );
+    // } catch (e) {
+    //   throw ServerException(message: e.toString());
+    // }
   }
 
   @override

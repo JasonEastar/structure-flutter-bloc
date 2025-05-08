@@ -24,6 +24,7 @@ class App extends StatelessWidget {
             themeMode: ThemeMode.system,
             locale: state.language, // Lấy locale từ state
             supportedLocales: AppLocalizations.delegate.supportedLocales,
+            debugShowCheckedModeBanner: false,
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

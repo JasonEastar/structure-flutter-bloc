@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:them/app/router/app_routes.dart';
 import 'package:them/features/auth/cubit/auth_cubit.dart';
 import 'package:them/features/auth/pages/login_page.dart';
+import 'package:them/features/auth/pages/regsiter_page.dart';
 import 'package:them/features/map/pages/map_page.dart';
 import 'package:them/features/splash/splash_screen.dart';
 
@@ -27,16 +28,20 @@ class AppRouter {
         builder: (context, state) => const LoginPage(),
       ),
       GoRoute(
+        path: AppRoutes.register,
+        builder: (context, state) => const RegsiterPage(),
+      ),
+      GoRoute(
         path: AppRoutes.home,
         builder: (context, state) => const MapPage(),
       ),
-      //  GoRoute(
-      //   path: AppRoutes.map,
-      //   builder: (context, state) => Scaffold(
-      //     appBar: AppBar(title: const Text('Trang chính')),
-      //     body: mapPage,
-      //   ),
-      // ),
+       GoRoute(
+        path: AppRoutes.map,
+        builder: (context, state) => Scaffold(
+          appBar: AppBar(title: const Text('Trang chính')),
+          body: mapPage,
+        ),
+      ),
     ],
     // Xử lý chuyển hướng trang
     redirect: (context, state) {
@@ -48,7 +53,7 @@ class AppRouter {
       if (isSplashRoute) return null;
 
       // Nếu chưa đăng nhập và không ở trang login, chuyển đến login
-      if (!isAuthenticated && !isLoginRoute) return AppRoutes.login;
+      if (!isAuthenticated) return AppRoutes.login;
 
       // Nếu đã đăng nhập và đang ở trang login, chuyển đến map
       if (isAuthenticated && isLoginRoute) return AppRoutes.home;
